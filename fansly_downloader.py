@@ -1390,10 +1390,10 @@ if any(['Message' in download_mode, 'Timeline' in download_mode, 'Normal' in dow
 if any(['Message' in download_mode, 'Normal' in download_mode]):
     output(1,' \n Info','<light-blue>', f"Initiating Messages procedure. Standby for results.")
     
-    groups_req = sess.get('https://apiv3.fansly.com/api/v1/group', headers=headers)
+    groups_req = sess.get('https://apiv3.fansly.com/api/v1/messaging/groups', headers=headers)
 
     if groups_req.ok:
-        groups_req = groups_req.json()['response']['groups']
+        groups_response = groups_response.json()['response']['aggregationData]['groups']
 
         # go through messages and check if we even have a chat history with the creator
         group_id = None

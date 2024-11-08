@@ -1390,10 +1390,10 @@ if any(['Message' in download_mode, 'Timeline' in download_mode, 'Normal' in dow
 if any(['Message' in download_mode, 'Normal' in download_mode]):
     output(1,' \n Info','<light-blue>', f"Initiating Messages procedure. Standby for results.")
     
-    groups_req = sess.get('https://apiv3.fansly.com/api/v1/group', headers=headers)
+    groups_req = sess.get('https://apiv3.fansly.com/api/v1/messaging/groups, headers=headers)
 
     if groups_req.ok:
-        groups_req = groups_req.json()['response']['groups']
+        groups_response = groups_response.json()['response']['groups']['aggregationData']['groups']
 
         # go through messages and check if we even have a chat history with the creator
         group_id = None
@@ -1409,7 +1409,7 @@ if any(['Message' in download_mode, 'Normal' in download_mode]):
         if group_id:
             msg_cursor = 0
             while True:
-                messages_req = sess.get('https://apiv3.fansly.com/api/v1/message', headers = headers, params = {'groupId': group_id, 'before': msg_cursor, 'limit': '25', 'ngsw-bypass': 'true'} if msg_cursor else {'groupId': group_id, 'limit': '25', 'ngsw-bypass': 'true'})
+                messages_req = sess.get('https://apiv3.fansly.com/api/v1/messaging/groups, headers = headers, params = {'groupId': group_id, 'before': msg_cursor, 'limit': '25', 'ngsw-bypass': 'true'} if msg_cursor else {'groupId': group_id, 'limit': '25', 'ngsw-bypass': 'true'})
 
                 if messages_req.status_code == 200:
                     accessible_media = None
